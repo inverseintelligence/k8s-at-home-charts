@@ -84,7 +84,6 @@ persistence:
     # will be considered only if hostPath key is not empty.
     # hostPath:
     #   path: "/mnt/data"
-    mountPath: /media
 
 metrics:
   # -- Enable and configure Exportarr sidecar and Prometheus serviceMonitor.
