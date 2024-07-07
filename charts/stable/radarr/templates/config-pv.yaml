@@ -1,0 +1,21 @@
+{{ if .Values.persistence.config.enabled }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{Release.Name}}-config-volume
+  labels:
+    type: config
+spec:
+  storageClassName: {{.Values.persistence.config.storageClass}}
+  capacity:
+    storage: {{.Values.persistence.config.size}}
+  accessModes:
+    {{- range .Values.persistence.config.accessModes}}
+    - {{ . }}
+    {{- end }}   
+  {{ with .Values.persistence.config.hostPath }}
+  hostPath:
+    path: {{ .path | default "/mnt/data" | quote }}
+  {{ end }}
+{{ end }}
+ 
