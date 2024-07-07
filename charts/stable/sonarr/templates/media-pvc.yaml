@@ -1,0 +1,19 @@
+{{ if .Values.persistence.media.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{Release.Name}}-media-volume-claim
+spec:
+  storageClassName: {{.Values.persistence.media.storageClass}}
+  accessModes:
+    {{- range .Values.persistence.media.accessModes}}
+    - {{ . }}
+    {{- end }}  
+  resources:
+    requests:
+      storage: {{.Values.persistence.media.size}}
+  selector:
+    matchLabels:
+      type: media
+{{ end }}
+ 
