@@ -62,10 +62,28 @@ probes:
 persistence:
   config:
     enabled: false
+    storageClass: manual
+    size: 10Gi
+    accessModes:
+    - ReadWriteOnce
+    hostPath: {}
+    # default settings if hostPath is enabled but not defined.
+    # will be considered only if hostPath key is not empty.
+    # hostPath:
+    #   path: "/mnt/data"
 
   media:
     enabled: false
     mountPath: /media
+    storageClass: null
+    size: null
+    accessModes:
+    - ReadWriteMany
+    hostPath: {}
+    # default settings if hostPath is enabled but not defined.
+    # will be considered only if hostPath key is not empty.
+    # hostPath:
+    #   path: "/mnt/data"
 
 metrics:
   # -- Enable and configure Exportarr sidecar and Prometheus serviceMonitor.

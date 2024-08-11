@@ -1,0 +1,21 @@
+{{ if .Values.persistence.media.enabled }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{Release.Name}}-media-volume
+  labels:
+    type: media
+spec:
+  storageClassName: {{.Values.persistence.media.storageClass}}
+  capacity:
+    storage: {{.Values.persistence.media.size}}
+  accessModes:
+    {{- range .Values.persistence.media.accessModes}}
+    - {{ . }}
+    {{- end }}   
+  {{ with .Values.persistence.media.hostPath }}
+  hostPath:
+    path: {{ .path | default "/mnt/data" | quote }}
+  {{ end }}
+{{ end }}
+ 
